@@ -1,0 +1,30 @@
+<server description="myserver">
+    <featureManager>
+        <feature>openidConnectServer-1.0</feature>
+        <feature>appSecurity-4.0</feature>
+        <feature>transportSecurity-1.0</feature>
+    </featureManager>
+
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*" />
+
+    <keyStore id="defaultKeyStore" password="Password"/>
+    <basicRegistry>
+        <user name="Jackson" password="Password"/>
+        <user name="Andrea" password="Password"/>
+    </basicRegistry>
+
+    <openidConnectProvider id="OP" oauthProviderRef="oauth"/>
+    <oauthProvider id="oauth">
+        <localStore>
+            <!-- コンテキストルートに注意. /oidcclientはopenidConnectClient-1.0フィーチャーによって作成されるコンテキストルート -->
+            <client name="RP" secret="password" scope="openid" redirect="https://localhost:9444/oidcclient/redirect/RP" />
+        </localStore>
+    </oauthProvider>
+    <oauth-roles>
+        <authenticated>
+            <special-subject type="ALL_AUTHENTICATED_USERS"/>
+        </authenticated>
+    </oauth-roles>
+
+    <webApplication contextRoot="/server" location="/home/hiro/github/oidc-example/myserver/target/myserver.war" />
+</server>

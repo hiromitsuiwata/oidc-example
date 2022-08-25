@@ -1,0 +1,17 @@
+<server description="oidcclient">
+    <featureManager>
+        <feature>webProfile-9.1</feature>
+        <feature>openidConnectClient-1.0</feature>
+        <feature>appSecurity-4.0</feature>
+        <feature>transportSecurity-1.0</feature>
+    </featureManager>
+
+    <httpEndpoint httpPort="9081" httpsPort="9444" id="defaultHttpEndpoint" host="*"/>
+    <keyStore id="defaultKeyStore" password="Password"></keyStore>
+
+    <!-- コンテキストルートに注意. /oidcはopenidConnectServer-1.0フィーチャーによって作成されるコンテキストルート -->
+    <openidConnectClient id="RP" clientId="RP" clientSecret="password" authorizationEndpointUrl="https://localhost:9443/oidc/endpoint/OP/authorize" tokenEndpointUrl="https://localhost:9443/oidc/endpoint/OP/token">
+    </openidConnectClient>
+
+    <webApplication contextRoot="/myclient" location="/home/hiro/github/oidc-example/myclient/target/myclient.war" />
+</server>

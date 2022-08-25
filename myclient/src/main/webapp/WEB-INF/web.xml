@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+  https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" version="5.0">
+
+    <module-name>myclient</module-name>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>api</web-resource-name>
+            <url-pattern>/api/*</url-pattern>
+        </web-resource-collection>
+        <!-- <auth-constraint>
+            <role-name>All Role</role-name>
+        </auth-constraint> -->
+        <!-- <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint> -->
+    </security-constraint>
+    <!-- <security-role>
+        <description>All Authenticated Users Role.</description>
+        <role-name>All Role</role-name>
+    </security-role> -->
+</web-app>
