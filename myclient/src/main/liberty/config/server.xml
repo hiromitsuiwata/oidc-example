@@ -13,5 +13,11 @@
     <openidConnectClient id="RP" clientId="RP" clientSecret="password" authorizationEndpointUrl="https://localhost:9443/oidc/endpoint/OP/authorize" tokenEndpointUrl="https://localhost:9443/oidc/endpoint/OP/token">
     </openidConnectClient>
 
-    <webApplication contextRoot="/myclient" location="/home/hiro/github/oidc-example/myclient/target/myclient.war" />
+    <webApplication contextRoot="/myclient" location="/home/hiro/github/oidc-example/myclient/target/myclient.war">
+        <application-bnd>
+            <security-role name="authenticated">
+                <special-subject type="ALL_AUTHENTICATED_USERS" />
+            </security-role>
+        </application-bnd>
+    </webApplication>
 </server>

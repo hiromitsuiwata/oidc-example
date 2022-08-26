@@ -4,14 +4,11 @@
 
 ```bash
 # 鍵ストアを作るためサーバーを作成して起動
-mvn -f myclient/pom.xml clean package liberty:create liberty:install-feature liberty:start
-ls myclient/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12
-mvn -f myserver/pom.xml clean package liberty:create liberty:install-feature liberty:start
-ls myserver/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12
+mvn -f myclient/pom.xml clean package liberty:create liberty:install-feature liberty:start liberty:stop
+mvn -f myserver/pom.xml clean package liberty:create liberty:install-feature liberty:start liberty:stop
 
-# 起動が完了したら停止
-mvn -f myserver/pom.xml liberty:stop
-mvn -f myclient/pom.xml liberty:stop
+#ls myclient/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12
+#ls myserver/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12
 
 # 停止されているか確認
 ps -ef | grep defaultServer
@@ -23,7 +20,8 @@ openssl req -new -key default.key -subj "/C=JP/ST=Tokyo/OU=example/CN=myserver" 
 openssl x509 -days 3650 -sha256 -req -signkey default.key < default.csr > default.crt
 # パスワードはserver.xmlに記載したPasswordにそろえる
 openssl pkcs12 -export -in default.crt -inkey default.key -out key.p12 -name default
-mv key.p12 myserver/target/liberty/wlp/usr/servers/defaultServer/resources/security/
+
+cp key.p12 myserver/target/liberty/wlp/usr/servers/defaultServer/resources/security/
 keytool -importcert -trustcacerts -keystore myclient/target/liberty/wlp/usr/servers/defaultServer/resources/security/key.p12 -storepass Password -alias myserver -file default.crt -noprompt
 rm -f default.*
 
@@ -33,6 +31,10 @@ keytool -list -v -keystore myclient/target/liberty/wlp/usr/servers/defaultServer
 # myserver, myclientを起動
 mvn -f myserver/pom.xml liberty:start
 mvn -f myclient/pom.xml liberty:start
+
+# 停止
+mvn -f myserver/pom.xml liberty:stop
+mvn -f myclient/pom.xml liberty:stop
 ```
 
 ブラウザからアクセス

@@ -8,10 +8,15 @@
     <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*" />
 
     <keyStore id="defaultKeyStore" password="Password"/>
-    <basicRegistry>
+    <basicRegistry id="basic" realm="BasicRealm">
         <user name="Jackson" password="Password"/>
         <user name="Andrea" password="Password"/>
     </basicRegistry>
+    <authorization-roles>
+        <security-role name="authenticated">
+            <user name="Jackson"/>
+        </security-role>
+    </authorization-roles>
 
     <openidConnectProvider id="OP" oauthProviderRef="oauth"/>
     <oauthProvider id="oauth">
@@ -21,10 +26,17 @@
         </localStore>
     </oauthProvider>
     <oauth-roles>
+        <clientManager>
+            <user name="Jackson" />
+        </clientManager>
         <authenticated>
-            <special-subject type="ALL_AUTHENTICATED_USERS"/>
+            <user name="Jackson"/>
         </authenticated>
     </oauth-roles>
+
+    <webAppSecurity allowFailOverToBasicAuth="true" />
+
+    <logging traceSpecification="*=info:com.ibm.ws.security.*=all:com.ibm.websphere.security.*=all:security.custom.store.*=all"/>
 
     <webApplication contextRoot="/server" location="/home/hiro/github/oidc-example/myserver/target/myserver.war" />
 </server>
