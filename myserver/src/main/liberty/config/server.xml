@@ -5,14 +5,16 @@
         <feature>transportSecurity-1.0</feature>
     </featureManager>
 
-    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*" />
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" host="*">
+        <accessLogging logFormat='%h %i %u %t "%r" %s %b'/>
+    </httpEndpoint>
 
     <keyStore id="defaultKeyStore" password="Password"/>
     <basicRegistry id="basic" realm="BasicRealm">
         <user name="Jackson" password="Password"/>
         <user name="Andrea" password="Password"/>
     </basicRegistry>
-    <authorization-roles>
+    <authorization-roles id="myrole1">
         <security-role name="authenticated">
             <user name="Jackson"/>
         </security-role>
