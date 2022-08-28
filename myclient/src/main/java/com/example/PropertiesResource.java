@@ -7,7 +7,12 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.MediaType;
+
+import java.util.HashMap;
+
 import org.eclipse.microprofile.jwt.JsonWebToken;
+
+import com.google.common.collect.Maps;
 
 @RequestScoped
 @Path("/properties")
@@ -19,8 +24,8 @@ public class PropertiesResource {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getProperties() {
-		System.out.println(jwt);
-
-		return Response.ok(System.getProperties().toString() + jwt.toString()).build();
+		HashMap<String, String> map = Maps.newHashMap(Maps.fromProperties(System.getProperties()));
+		map.put("rawToken", jwt.getRawToken());
+		return Response.ok(map).build();
 	}
 }

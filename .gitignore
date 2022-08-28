@@ -15,3 +15,7 @@ node_modules/
 default.crt
 default.csr
 default.key
+.classpath
+.project
+.jsdtscope
+.settings
