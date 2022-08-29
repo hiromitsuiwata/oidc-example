@@ -15,9 +15,34 @@
 
     <keyStore id="defaultKeyStore" password="Password"></keyStore>
 
+    <!-- <mpJwt id="mympjwt" issuer="https://example.com" jwksUri="http://localhost:9081/jwt/ibm/api/myBuilder/jwk"/> -->
+
     <!-- コンテキストルートに注意. /oidcはopenidConnectServer-1.0フィーチャーによって作成されるコンテキストルート -->
-    <openidConnectClient id="RP" clientId="RP" clientSecret="password" authorizationEndpointUrl="https://localhost:9443/oidc/endpoint/OP/authorize" tokenEndpointUrl="https://localhost:9443/oidc/endpoint/OP/token">
+    <!-- https://stackoverflow.com/questions/61094656/how-to-get-extra-claims-from-openidconnect-client-login-in-openliberty -->
+    <openidConnectClient 
+        id="RP"
+        clientId="myclient" 
+        clientSecret="iY76PAdeKRuvlxgLmPasoQR86WId1eqw"
+        httpsRequired="false" 
+        signatureAlgorithm="RS256" 
+        userIdentifier="preferred_username" 
+        redirectToRPHostAndPort="http://localhost:9081/" 
+        issuerIdentifier="http://localhost:8080/auth/realms/master" 
+        authorizationEndpointUrl="http://localhost:8080/auth/realms/master/protocol/openid-connect/auth"
+        tokenEndpointUrl="http://localhost:8080/auth/realms/master/protocol/openid-connect/token"
+        jwkEndpointUrl="http://localhost:8080/auth/realms/master/protocol/openid-connect/certs">
     </openidConnectClient>
+
+    <!--
+        userNameAttribute="email"
+        discoveryEndpointUrl="http://localhost:8080/auth/realms/master/.well-known/openid-configuration"
+        scope="openid profile email groups user_group microprofile-jwt"
+        userIdentityToCreateSubject="email" 
+        groupNameAttribute="groups"
+        groupIdentifier="groups" 
+        userInfoEndpointEnabled="true"
+
+        -->
 
     <webApplication contextRoot="/myclient" location="/home/hiro/github/oidc-example/myclient/target/myclient.war">
         <application-bnd>

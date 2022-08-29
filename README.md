@@ -117,3 +117,12 @@ jwkEndpointUrl
 
 https://qiita.com/TakahikoKawasaki/items/185d34814eb9f7ac7ef3#5-%E3%83%88%E3%83%BC%E3%82%AF%E3%83%B3%E5%8F%96%E3%82%8A%E6%B6%88%E3%81%97-rfc-7009
 
+
+## Keycloakを利用する
+
+こちらをコピーして利用する。
+https://github.com/keycloak/keycloak-containers/blob/main/docker-compose-examples/keycloak-postgres.yml
+
+```bash
+docker-compose -f keycloak-postgres.yml up
+```

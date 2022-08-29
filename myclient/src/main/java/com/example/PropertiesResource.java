@@ -25,14 +25,14 @@ public class PropertiesResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getProperties() {
 		HashMap<String, String> map = Maps.newHashMap(Maps.fromProperties(System.getProperties()));
-		System.out.println(jwt.getRawToken());
-		System.out.println(jwt.getName());
+		System.out.println("rawToken: " + jwt.getRawToken());
+		System.out.println("name: " + jwt.getName());
 		// System.out.println(jwt.getExpirationTime());
-		System.out.println(jwt.getIssuer());
-		System.out.println(jwt.getSubject());
-		System.out.println(jwt.getClaimNames());
-		System.out.println(jwt.getGroups());
-		System.out.println(jwt.getTokenID());
+		System.out.println("issuer: " + jwt.getIssuer());
+		System.out.println("subject: " + jwt.getSubject());
+		System.out.println("claimNames: " + jwt.getClaimNames());
+		System.out.println("groups: " + jwt.getGroups());
+		System.out.println("tokenID: " + jwt.getTokenID());
 
 		map.put("rawToken", jwt.getRawToken());
 		return Response.ok(map).build();
