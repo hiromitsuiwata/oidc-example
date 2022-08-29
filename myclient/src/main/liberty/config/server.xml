@@ -24,23 +24,36 @@
         clientId="myclient" 
         clientSecret="iY76PAdeKRuvlxgLmPasoQR86WId1eqw"
         httpsRequired="false" 
+        userInfoEndpointEnabled="true"
         signatureAlgorithm="RS256" 
         userIdentifier="preferred_username" 
-        redirectToRPHostAndPort="http://localhost:9081/" 
-        issuerIdentifier="http://localhost:8080/auth/realms/master" 
-        authorizationEndpointUrl="http://localhost:8080/auth/realms/master/protocol/openid-connect/auth"
-        tokenEndpointUrl="http://localhost:8080/auth/realms/master/protocol/openid-connect/token"
-        jwkEndpointUrl="http://localhost:8080/auth/realms/master/protocol/openid-connect/certs">
+        scope="openid profile email microprofile-jwt"
+        userNameAttribute="email"
+        userIdentityToCreateSubject="email" 
+        redirectToRPHostAndPort="http://myclient:9081/" 
+        issuerIdentifier="http://keycloak:8080/auth/realms/master" 
+        authorizationEndpointUrl="http://keycloak:8080/auth/realms/master/protocol/openid-connect/auth"
+        tokenEndpointUrl="http://keycloak:8080/auth/realms/master/protocol/openid-connect/token"
+        jwkEndpointUrl="http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs">
     </openidConnectClient>
 
+    <jwtBuilder id="defaultJWT" 
+        issuer="http://keycloak:8080/auth/realms/master"
+        scope="openid profile email microprofile-jwt">
+        <claims>name,aud,upn</claims>
+        <!-- <audiences>cdo-mapeditor</audiences> -->
+    </jwtBuilder>
+
+    <jwtConsumer id="defaultJwtConsumer"
+        issuer="https://example.com"
+        audiences="Luke, Leia, Han"
+        signatureAlgorithm="RS256"
+        jwkEnabled="true"
+        jwkEndpointUrl="http://keycloak:8080/auth/realms/master/protocol/openid-connect/certs"
+    />
+
     <!--
-        userNameAttribute="email"
         discoveryEndpointUrl="http://localhost:8080/auth/realms/master/.well-known/openid-configuration"
-        scope="openid profile email groups user_group microprofile-jwt"
-        userIdentityToCreateSubject="email" 
-        groupNameAttribute="groups"
-        groupIdentifier="groups" 
-        userInfoEndpointEnabled="true"
 
         -->
 
